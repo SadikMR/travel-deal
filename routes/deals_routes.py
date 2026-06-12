@@ -1,6 +1,6 @@
 import logging
 from flask import Blueprint, request, jsonify
-from services.deals_services import create_deal
+from services.deals_services import create_deal, get_all_deals
 from utils.responses import error_response, success_response
 from utils.validation import validate_deal_data
 
@@ -8,6 +8,7 @@ deal_bp = Blueprint("deals", __name__)
 
 logger = logging.getLogger(__name__)
 
+# API Endpoint to add a new travel deal
 @deal_bp.route("", methods=["POST"])
 def add_deal():
     """
@@ -28,6 +29,7 @@ def add_deal():
             return error_response("No JSON payload provided", 400)
         
         required_fields = ["destination", "price", "platform", "rating", "travel_type"]
+        
         missing_fields = [field for field in required_fields if field not in data]
         if missing_fields:
             return error_response(f"Missing required fields: {', '.join(missing_fields)}", 400)
@@ -47,3 +49,18 @@ def add_deal():
         logger.error(f"Error in add_deal endpoint: {str(e)}")
         return error_response("An error occurred while adding the deal", 500) 
     
+
+
+# API Endpoint to retrieve all travel deals
+@deal_bp.route("", methods=["GET"])
+def get_deals():
+    """
+    API Endpoint to retrieve all travel deals.
+    """
+    try:
+        deals = get_all_deals()
+        return success_response(data=deals, message="Deals retrieved successfully", status_code=200)
+    
+    except Exception as e:
+        logger.error(f"Error in get_deals endpoint: {str(e)}")
+        return error_response(message="An error occurred while retrieving the deals", status_code=500)

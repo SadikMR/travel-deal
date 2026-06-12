@@ -18,11 +18,34 @@ def create_deal(data):
             rating=data['rating'],
             travel_type=data['travel_type']
         )
+
         db.session.add(new_deal)
         db.session.commit()
+
         logging.info(f"Created new deal: {new_deal.to_dict()}")
+
         return new_deal.to_dict()
+    
     except Exception as e:
-        db.session.rollback()
         logging.error(f"Error creating deal: {str(e)}")
+        raise
+
+
+def get_all_deals():
+    """
+    Retrieves all travel deals from the database.
+    Returns:
+        list: A list of dictionaries, each representing a travel deal.
+    """
+    try:
+        deals = TravelDeal.query.all()
+        deal_list = []
+
+        for deal in deals:
+            deal_list.append(deal.to_dict())
+
+        return deal_list
+    
+    except Exception as e:
+        logging.error(f"Error retrieving deals: {str(e)}")
         raise
