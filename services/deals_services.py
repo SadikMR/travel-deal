@@ -1,0 +1,28 @@
+import logging
+from database.db import db
+from database.models import TravelDeal
+
+def create_deal(data):
+    """
+    Creates a new travel deal in the database.
+    Args:
+        data (dict): A dictionary containing the travel deal details.
+    Returns:
+        dict: A dictionary representation of the created travel deal.
+    """
+    try:
+        new_deal = TravelDeal(
+            destination=data['destination'],
+            price=data['price'],
+            platform=data['platform'],
+            rating=data['rating'],
+            travel_type=data['travel_type']
+        )
+        db.session.add(new_deal)
+        db.session.commit()
+        logging.info(f"Created new deal: {new_deal.to_dict()}")
+        return new_deal.to_dict()
+    except Exception as e:
+        db.session.rollback()
+        logging.error(f"Error creating deal: {str(e)}")
+        raise

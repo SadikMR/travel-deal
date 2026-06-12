@@ -3,6 +3,8 @@ from flask import Flask
 from config import Config
 from database.db import db
 from database.models import TravelDeal
+from routes.deals_routes import deal_bp
+
 
 
 def create_app():
@@ -26,6 +28,9 @@ def create_app():
     
     # Initialize DB
     db.init_app(app)
+
+    # Register Blueprints
+    app.register_blueprint(deal_bp, url_prefix="/deals")
     
     
     @app.route("/")

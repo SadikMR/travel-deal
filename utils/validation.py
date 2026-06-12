@@ -5,13 +5,8 @@ def validate_deal_data(data):
     - is_valid: True if data is valid, False otherwise
     - message: Error message if data is invalid, None otherwise
     """
-    required_fields = ["rating", "travel_type", "price", "destination"]
 
     allowed_travel_types = ["Budget", "Luxury", "Family", "Adventure"]
-    
-    for field in required_fields:
-        if field not in data:
-            return False, f"Missing required field: {field}"
     
     price = data.get("price")
     if not isinstance(price, (int, float)) or price < 0:
@@ -28,6 +23,10 @@ def validate_deal_data(data):
     destination = data.get("destination")
     if not isinstance(destination, str) or not destination.strip():
         return False, "Destination must be a non-empty string"
+    
+    platform = data.get("platform")
+    if not isinstance(platform, str) or not platform.strip():
+        return False, "Platform must be a non-empty string"
     
     return True, None
     
