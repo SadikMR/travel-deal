@@ -4,7 +4,7 @@ A Flask-based REST API for managing and retrieving travel deals. This applicatio
 
 ## Repository
 
-GitHub: [https://github.com/SadikMR/travel-deal](https://github.com/SadikMR/travel-deal)
+GitHub: [https://github.com/SadikMR/travel-deal](https://github.com/SadikMR/Md-Sadik-Mahmud-Raihan)
 
 ## Postman Collection
 
@@ -71,8 +71,8 @@ Postman: https://www.postman.com/sadikmr-6504980/workspace/travel-deal/collectio
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/SadikMR/travel-deal.git
-cd travel-deal
+git clone https://github.com/SadikMR/Md-Sadik-Mahmud-Raihan.git
+cd Md-Sadik-Mahmud-Raihan
 ```
 
 ### 2. Create a Virtual Environment
